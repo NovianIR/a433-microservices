@@ -1,0 +1,30 @@
+# Versi Docker Compose yang digunakan
+version: '2'
+
+services:
+# Service pertama untuk aplikasi   
+  item-app:
+# Image yang digunakan pada service item-app  
+    image: novianilham/item-app:v1  
+# # Melakukan port mapping dari port 80 di host ke port 8080 di container    
+    ports:
+      - "80:8080"
+# Memastikan service item-db berjalan sebelum service item-app diluncurkan
+    depends_on:
+      - item-db
+# Menetapkan restart policy agar container 'item-app' selalu restart ketika terhenti      
+    restart: always  
+
+# Service kedua untuk database 
+  item-db:
+# Image yang digunakan untuk service item-db
+    image: mongo:3
+# Menggunakan volume bernama app-db dan memetakkannya ke /data/db di container
+    volumes:
+      - app-db:/data/db
+# Menetapkan restart policy agar container 'item-db' selalu restart ketika terhenti
+    restart: always  
+
+# Nama volume yang digunakan untuk menyimpan data database
+volumes:
+  app-db:
