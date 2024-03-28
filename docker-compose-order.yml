@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  order-service:
+    image: novianilham/order-service
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - rabbitmq
+    environment:
+      PORT: "3000"
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
