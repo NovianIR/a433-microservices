@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  shipping-service:
+    image: novianilham/shipping-service
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: "3001"
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+    depends_on:
+      - rabbitmq
+
+
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
