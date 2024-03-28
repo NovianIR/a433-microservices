@@ -2,14 +2,14 @@ FROM node:14
 
 WORKDIR /app
 
-COPY package*.json .
-
-ADD index.js .
-
-ENV PORT=3000 AMQP_URL=amqp://localhost:5672
+COPY . .
 
 RUN npm install
 
-CMD ["npm","run", "start"]
+ENV AMQP_URL="amqp://rabbitmq:5672"
 
 expose 3000
+
+CMD ["node", "index.js"]
+
+

@@ -12,6 +12,17 @@ services:
       PORT: "3000"
       AMQP_URL: amqp://guest:guest@rabbitmq:5672
 
+  shipping-service:
+    image: novianilham/shipping-service
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: "3001"
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
+    depends_on:
+      - rabbitmq
+
   rabbitmq:
     image: rabbitmq:3.11-management
     ports:
